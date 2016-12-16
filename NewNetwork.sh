@@ -2,12 +2,12 @@
 
 help() {
     echo -e "Usage:\n\n"
-    echo "$0 <project_name> [ INFN | UNIPD | CEDC ]"
-    echo -e "\n    Create a subnet for the Project\n"
-    echo "OR"
+    echo "$0 <nome_progetto> [ INFN | UNIPD | CEDC ]"
+    echo -e "\n    Crea una (sotto)rete per il <progetto>\n"
+    echo "OPPURE"
     echo
-    echo "$0 <project_name> FIP [ INFN | UNIPD ]"
-    echo -e "\n    Create a \"wan\" network to host a Floating IP\n"
+    echo "$0 <nome_progetto> FIP [ INFN | UNIPD ]"
+    echo -e "\n    Crea una \"wan\" per agganciare un Floating IP\n"
     exit 0
 }
 
