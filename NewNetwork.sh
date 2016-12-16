@@ -1,17 +1,31 @@
 #!/bin/bash
 
+help() {
+    echo -e "Usage:\n\n"
+    echo "$0 <project_name> [ INFN | UNIPD | CEDC ]"
+    echo -e "\n    Create a subnet for the Project\n"
+    echo "OR"
+    echo
+    echo "$0 <project_name> FIP [ INFN | UNIPD ]"
+    echo -e "\n    Create a \"wan\" network to host a Floating IP\n"
+    exit 0
+}
+
 echo
 projectname=$1
 affiliation=$2
+suffix="lan"
+if [ "x$2" = "xFIP" ] ; then
+    affiliation=$3
+    suffix="wan"
+fi
 
 #Check Input
-if [ "$1x" = "x" ] ; then
-    echo "Usage: $0 <project_name> [ INFN | UNIPD | CEDC ]"
-    exit
+if [ "x$projectname" = "x" ] ; then
+    help
 fi
-if [ "$2x" = "x" ] ; then
-    echo "Usage: $0 <project_name> [ INFN | UNIPD | CEDC ]"
-    exit
+if [ "x$affiliation" = "x" ] ; then
+    help
 fi
 
 source /root/keystone_admin-kilo.sh || ( echo "!!! Non trovo le credenziali per admin" && exit ) 
