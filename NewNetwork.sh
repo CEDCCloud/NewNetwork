@@ -37,13 +37,18 @@ then
    echo
    echo "    Forse non e' stato ancora creato?"
    echo
-   exit
+   exit -1
 fi
 
 
 case "$affiliation" in
- "INFN")  net_pool="10.66." 
-          router="router-infn" 
+ "INFN")  if [ "$suffix" = "lan" ] ; then
+              net_pool="10.66." 
+              router="router-infn"
+          else
+              net_pool="10.65."
+              router="router01"
+          fi
           dns1="192.84.143.16"
           dns2="192.84.143.31"
           dns3="192.84.143.224" 
@@ -113,13 +118,13 @@ fi
 if [ $ans != "Y" ] ; then
     if [ $ans != "y" ] ; then
         echo "Creazione annullata."
-        exit
+        exit -2
     fi
 fi
 
 # set -x
 
-   net_name=${projectname}-${affiliation}-lan
+   net_name=${projectname}-${affiliation}-$suffix
 subnet_name=sub-${net_name}
 
 echo "Creo la rete $net_name"
